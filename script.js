@@ -1,43 +1,43 @@
 // Role toggle
-document.querySelector('.sign').forEach(s => {
-    s.addEventListener('click', () => {
-        document.querySelectorAll('.sign').forEach(o => o.classList.remove('active'));
+document.querySelectorAll('.sign').forEach(s=>{
+    s.addEventListener('click', ()=>{
+        document.querySelectorAll('.sign').forEach(o=>o.classList.remove('active'));
         s.classList.add('active');
     });
 });
 
-// Password visibitity
-document.querySelectorAll('.toggle-visibility').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const input = getElementById(btn.dataset.target);
+// Password visibility
+document.querySelectorAll('.toggle-visibility').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        const input = document.getElementById(btn.dataset.target);
         input.type = input.type === 'password' ? 'text' : 'password';
     });
 });
 
 // Live validation
-const phone = getElementById('phone');
-const phoneMsg = getElementById('phoneMsg');
-phone.addEventListener('input', () => {
-    const val = phone.value.trim();
-    const valid = /^[0-9+\s-]{7,15}$/.test(val);
-    if(val.length === 0){ phone.classList.remove('invalid'); phoneMsg.classList.remove('error'); return; }
-    phone.classList.toggle('invalid', !valid);
-    phoneMsg.style.display = valid ? 'none' : 'flex';
+const phone = document.getElementById('phone');
+const phoneMsg = document.getElementById('phoneMsg');
+phone.addEventListener('input', ()=>{
+const val = phone.value.trim();
+const valid = /^[0-9+\s-]{7,15}$/.test(val);
+if(val.length === 0){ phone.classList.remove('invalid'); phoneMsg.classList.remove('error'); return; }
+phone.classList.toggle('invalid', !valid);
+phoneMsg.style.display = valid ? 'none' : 'flex';
 });
 
-const pw = getElementById('password');
-const cpw = getElementById('confirmPassword');
+const pw = document.getElementById('password');
+const cpw = document.getElementById('confirmPassword');
 const confirmMsg = document.getElementById('confirmMsg');
 function checkMatch(){
-    if(cpw.value.length === 0){ cpw.classList.remove('invalid'); confirmMsg.style.display='none'; return; }
-    const match = pw.value === cpw.value;
-    cpw.classList.toggle('invalid', !match);
-    confirmMsg.style.display = match ? 'none' : 'flex';
-  }
+if(cpw.value.length === 0){ cpw.classList.remove('invalid'); confirmMsg.style.display='none'; return; }
+const match = pw.value === cpw.value;
+cpw.classList.toggle('invalid', !match);
+confirmMsg.style.display = match ? 'none' : 'flex';
+}
 pw.addEventListener('input', checkMatch);
 cpw.addEventListener('input', checkMatch);
 
-// Submit flow
+// submit flow 
 const fullName = document.getElementById('fullName');
 const terms = document.getElementById('terms');
 const banner = document.getElementById('banner');
@@ -86,26 +86,26 @@ function setLoading(isLoading){
 form.addEventListener('submit', (e)=>{
     e.preventDefault();
     banner.classList.remove('show');
- 
+
     const nameOk = validateName();
     const phoneOk = validatePhone();
     const matchOk = validateMatch();
     const termsOk = validateTerms();
- 
+
     if(!nameOk || !phoneOk || !matchOk || !termsOk) return;
- 
+
     setLoading(true);
- 
+
     // Simulated API call — replace with the real registration request.
     setTimeout(()=>{
-      setLoading(false);
+        setLoading(false);
 
-      if(phone.value.replace(/\s|-/g,'') === '0701234567'){
+        if(phone.value.replace(/\s|-/g,'') === '0701234567'){
         banner.classList.add('show');
         return;
-      }
- 
-      submitLabel.textContent = 'Account created ✓';
-      submitBtn.disabled = true;
+        }
+
+        submitLabel.textContent = 'Account created ✓';
+        submitBtn.disabled = true;
     }, 1400);
-  });
+});
